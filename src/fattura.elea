@@ -1,0 +1,34 @@
+Indirizzo   Istruzione      Configurazione   Commento
+-------------------------------------------------------------------
+Dati da caricare in memoria
+0800-0809   (letto da LNa)                   Zona A: α, QA (0801-0804), PA (0805-0808), α
+0810-0819   (letto da LNa)                   Zona B: α, QB (0811-0814), PB (0815-0818), α
+0821-0830   0000000000                       Costante Z = 0
+0841-0850   0000000000                       Totale TOT
+
+1° programma
+0900        CT              #0 0003 39       T3 = 3 (coppie di righe)
+0908        MA              10 0830 #F       Acc = 0
+0916        S2P             ☒# 1200 #0       Avvia lettura A
+0924        S2P             ☒# 1216 #0       (CICLO) Attende A; avvia lettura B
+0932        Y               04 0804 #6       T0 = QA
+0940        +X              04 0808 #=       Acc + = PA × T0
+0948        -CT             #0 0001 34       T3--
+0956        SR=             θ# 0996 #0       T3 == 0 ? salta a (0996)
+0964        S2P             ☒# 1200 #0       Attende B; avvia lettura A
+0972        Y               04 0814 #6       T0 = QB
+0980        +X              04 0818 #=       Acc + = PB × T0
+0988        SI              )# 0924 #0       Torna al ciclo (0924)
+0996        S2P             ☒# 1232 #0       (FINE) Attende B
+1004        Y               04 0814 #6       T0 = QB
+1012        +X              04 0818 #=       Acc + = PB × T0
+1020        AoM             10 0850 #B       TOT = Acc; Acc = 0
+1028        MS              10 0841 #∅       Stampa il totale
+1036        STOP            0# #### #0       Fine 1° programma
+
+2° programma
+1200        LNa             X1 0800 #*       Lettura A (0800→0809)
+1208        STOP            0# #### #0       Fine routine
+1216        LNa             X1 0810 #*       Lettura B (0810→0819)
+1224        STOP            0# #### #0       Fine routine
+1232        STOP            0# #### #0       Wait

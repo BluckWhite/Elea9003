@@ -1,0 +1,27 @@
+Indirizzo   Istruzione  Configurazione   Commento
+-------------------------------------------------------------------
+Dati da caricare in memoria
+0303-0310  (letto da CM)    		 Dividendo N
+0313-0320  (letto da CM)    		 Divisore D
+0323-0330    00000000         		 Quoziente Q
+0333-0340    00000000         		 Costante Z = 0
+0347-0350      DIV0             	 Messaggio d'errore
+
+Programma
+0360        CM          08 0303 #%       Legge N
+0368        CM          08 0313 #%       Legge D
+0376        MA          08 0340 #F       Acc = Z
+0384        CMA         08 0320 #E       Confronta D e accumulatore
+0392        SC=         X# 0480 #0       D == 0 ? errore, salta a (0480)
+0400        MA          08 0310 #F       (LOOP) Acc = N
+0408        CMA         08 0320 #E       Confronta D e accumulatore
+0416        SC>         S# 0472 #0       D > N ? fine (0472)
+0424        -MA         08 0320 #H       Acc = N - D
+0432        AoM         08 0310 #B       N = Acc; Acc = 0
+0440        MT          81 0330 #X       T1 = Q
+0448        +CT         #0 0001 1+       T1++
+0456        TM          81 0330 #Y       Q = T1
+0464        SI          )# 0400 #0       Torna al ciclo (0400)
+0472        SI          )# 0015 90       (FINE) Ritorno (T9+0015)
+0480        MS          04 0347 #0       (ERRORE) Stampa "DIVO"
+0488        STOP        0# #### #0       Fine per Errore

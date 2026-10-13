@@ -1,0 +1,27 @@
+Indirizzo   Istruzione  Configurazione   Commento
+-------------------------------------------------------------------
+Dati da caricare in memoria
+0313-0320    00000005         		 Divisore D, (# elementi)
+0503-0510  (letto da CM)    		 V0
+0513-0520  (letto da CM)    		 V1
+0523-0530  (letto da CM)    		 V2
+0533-0540  (letto da CM)    		 V3
+0543-0550  (letto da CM)    		 V4
+0553-0560    00000000         		 Media M
+
+Programma
+0600        CT          #0 0000 19       T1 = 0 (indice del vettore)
+0608        CT          #0 0005 29       T2 = 5 (contatore iterazioni)
+0616        MA          08 0340 #F       Acc = 0
+0624        CM          08 0503 1%       Legge V[i]
+0632        +MA         08 0510 1C       Acc + = V[i] (0510+T1)
+0640        +CT         #0 0010 1+       T1 + = 10
+0648        -CT         #0 0001 24       T2--
+0656        SR!=        .# 0624 #0       T2 != 0 ? salta a (0624)
+0664        AoM         08 0310 #B       N = Acc; Acc = 0
+0672        AoM         08 0330 #B       Q = Acc
+0680        SI          )9 0376 #0       Call Divisione
+0688        MA          08 0330 #F       (RITORNO) Acc = Q
+0696        AoM         08 0560 #B       M = Acc
+0704        MS          08 0553 #0       Stampa la media
+0712        STOP        0# #### #0       Fine programma
