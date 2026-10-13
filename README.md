@@ -14,13 +14,11 @@ Il titolo della tesi è *"Studio dell'architettura e della programmazione dell'E
 - `docs/` – Manualistica originale
 - `src/` – Codici proposti nella tesi, scritti nel linguaggio di programmazione di Olivetti
 
-## Autore
+## Autore e Relatore
 
-[Dott. Nicholas Del Buono]
+Dott. Nicholas Del Buono
 
-## Relatore
-
-[Prof. Giuseppe Lettieri]
+Prof. Giuseppe Lettieri
 
 ## Segnalazioni
 
